@@ -54,7 +54,10 @@ export default function Favorites({ favorites, removeFavorite }) {
   };
 
   return (
-    <Box sx={{ pt: 10 }}>
+    <Box sx={{ pt: 13 }}>
+      <Typography variant='h1' gutterBottom>
+        Favorites
+      </Typography>
       <ImageList variant='masonry' cols={3} gap={8}>
         {favorites.map(movie => (
           <ImageListItem key={movie.imdbID}>

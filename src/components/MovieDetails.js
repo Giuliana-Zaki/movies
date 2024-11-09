@@ -27,12 +27,11 @@ export default function MovieDetails({ movies }) {
       getMovie();
     }
   }, [imdbID, movies]);
-  console.log(movie, '11111');
 
   return (
     <React.Fragment>
       {movie ? (
-        <Card sx={{ maxWidth: 500, mt: 11, ml: 40 }}>
+        <Card sx={{ maxWidth: 500, mt: 10, ml: 40 }}>
           <CardActionArea>
             <CardMedia
               component='img'
@@ -44,23 +43,29 @@ export default function MovieDetails({ movies }) {
               <Typography gutterBottom variant='h5' component='div'>
                 {movie.Title} by {movie.Director}
               </Typography>
-              <Typography
-                variant='body2'
-                sx={{ color: 'text.secondary', fontWeight: 'bold' }}>
-                <strong>Released:</strong> {movie.Released}
+              <Typography variant='subtitle2' gutterBottom>
+                Released
               </Typography>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                <strong>Genre:</strong> {movie.Genre}
+                {movie.Released}
+              </Typography>
+              <Typography variant='subtitle2' gutterBottom>
+                Genre
               </Typography>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                <strong>Plot:</strong> {movie.Plot}
+                {movie.Genre}
+              </Typography>
+              <Typography variant='subtitle2' gutterBottom>
+                Plot
               </Typography>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                <strong>Plot:</strong>
                 {movie.Plot}
               </Typography>
+              <Typography variant='subtitle2' gutterBottom>
+                Awards
+              </Typography>
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>
-                <strong>Awards:</strong> {movie.Awards}
+                {movie.Awards}
               </Typography>
             </CardContent>
           </CardActionArea>

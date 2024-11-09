@@ -77,16 +77,28 @@ export default function TopRated({ addFavorite }) {
         width: '100%',
         bgcolor: 'background.paper'
       }}>
+      <Typography variant='h1' gutterBottom>
+        Top Rated
+      </Typography>
       {movies.map(movie => {
         return (
           <React.Fragment key={movie.imdbID}>
-            <ListItem alignItems='flex-start' key={movie.imdbID}>
+            <ListItem
+              alignItems='flex-start'
+              key={movie.imdbID}
+              sx={{ height: 100 }}>
               <ListItemAvatar>
                 <Avatar
                   alt={movie.Title}
                   src={movie.Poster}
                   onClick={() => handlePosterClick(movie.imdbID)}
-                  style={{ cursor: 'pointer' }}
+                  style={{
+                    cursor: 'pointer',
+                    width: '60px',
+                    height: '60px',
+                    position: 'relative',
+                    marginRight: '10px'
+                  }}
                 />
               </ListItemAvatar>
               <ListItemText

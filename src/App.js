@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Root from './components/Root';
 import Favorites from './components/Favorites';
 import './index.css';
+import Login from './components/Login';
 
 const darkTheme = createTheme({
   palette: {
@@ -19,22 +20,7 @@ const darkTheme = createTheme({
 function App() {
   const [movies, setMovies] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [searchQuery, setSearchQuery] = useState({
-    name: '',
-    year: '',
-    genre: ''
-  });
-  const filteredMovies =
-    searchQuery.name || searchQuery.year || searchQuery.genre
-      ? movies.filter(
-          movie =>
-            movie.Title.toLowerCase().includes(
-              searchQuery.name.toLowerCase()
-            ) &&
-            movie.Year.toLowerCase().includes(searchQuery.year.toLowerCase()) &&
-            movie.Genre.toLowerCase().includes(searchQuery.genre.toLowerCase())
-        )
-      : movies;
+
   const addFavorite = movie => {
     setFavorites(oldFavorites => {
       const isAlreadyFavorite = oldFavorites.some(
@@ -99,14 +85,7 @@ function App() {
       children: [
         {
           index: true,
-          element: (
-            <Home
-              movies={filteredMovies}
-              addFavorite={addFavorite}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
-          )
+          element: <Home movies={movies} addFavorite={addFavorite} />
         },
         {
           path: 'top rated',
@@ -121,6 +100,10 @@ function App() {
           element: (
             <Favorites favorites={favorites} removeFavorite={removeFavorite} />
           )
+        },
+        {
+          path: '/login',
+          element: <Login />
         }
       ]
     }
