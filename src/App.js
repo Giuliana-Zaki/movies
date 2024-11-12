@@ -84,7 +84,14 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home movies={movies} addFavorite={addFavorite} />
+          element: (
+            <Home
+              movies={movies}
+              addFavorite={addFavorite}
+              favorites={favorites}
+              removeFavorite={removeFavorite}
+            />
+          )
         },
         {
           path: 'top rated',

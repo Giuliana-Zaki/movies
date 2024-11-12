@@ -69,8 +69,8 @@ export default function Favorites({ favorites, removeFavorite }) {
               }}>
               <CardHeader title={movie.Title} subheader={movie.Director} />
               <CardMedia
+                sx={{ maxHeight: '500px' }}
                 component='img'
-                height='auto'
                 image={movie.Poster}
                 alt={movie.Title}
                 onClick={() => handlePosterClick(movie.imdbID)}
@@ -80,7 +80,7 @@ export default function Favorites({ favorites, removeFavorite }) {
                 <IconButton
                   aria-label='remove from favorites'
                   onClick={() => removeFavorite(movie.imdbID)}>
-                  <FavoriteIcon />
+                  <FavoriteIcon sx={{ color: 'red' }} />
                 </IconButton>
                 <ExpandMore
                   expand={expanded[movie.imdbID] || false}

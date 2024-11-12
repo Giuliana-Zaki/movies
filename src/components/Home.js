@@ -20,7 +20,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Pagination from '@mui/material/Pagination';
 import { Stack } from '@mui/material';
 
-export default function Home({ movies, addFavorite }) {
+export default function Home({
+  movies,
+  addFavorite,
+  favorites,
+  removeFavorite
+}) {
   const [expanded, setExpanded] = useState({});
   const [name, setName] = useState('');
   const [year, setYear] = useState('');
@@ -72,6 +77,16 @@ export default function Home({ movies, addFavorite }) {
 
   const handleExpandClick = imdbID => {
     setExpanded(expand => ({ ...expand, [imdbID]: !expand[imdbID] }));
+  };
+  const isFavorited = movie =>
+    favorites.some(fav => fav.imdbID === movie.imdbID);
+
+  const handleFavoriteClick = movie => {
+    if (isFavorited(movie)) {
+      removeFavorite(movie.imdbID);
+    } else {
+      addFavorite(movie);
+    }
   };
 
   const Search = styled('div')(({ theme }) => ({
@@ -217,8 +232,10 @@ export default function Home({ movies, addFavorite }) {
               <CardActions disableSpacing>
                 <IconButton
                   aria-label='add to favorites'
-                  onClick={() => addFavorite(movie)}>
-                  <FavoriteIcon />
+                  onClick={() => handleFavoriteClick(movie)}>
+                  <FavoriteIcon
+                    sx={{ color: isFavorited(movie) ? 'red' : 'gray' }}
+                  />
                 </IconButton>
                 <ExpandMore
                   expand={expanded[movie.imdbID] || false}
