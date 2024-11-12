@@ -10,7 +10,7 @@ import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
-  const pages = ['Top Rated', 'Favorites', 'Login'];
+  const pages = ['Top Rated', 'Favorites'];
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { FormGroup, Button, TextField } from '@mui/material';
@@ -22,11 +23,16 @@ const validationSchema = yup.object({
 
 export default function Login() {
   const formik = useFormik({
+    initialValues: {
+      email: 'test@example.com',
+      password: 'Password@123'
+    },
     validationSchema: validationSchema,
     onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
+      navigate(`/`);
     }
   });
+  const navigate = useNavigate();
 
   return (
     <div>
