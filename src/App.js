@@ -67,8 +67,7 @@ function App() {
         const response = await fetch(
           `https://www.omdbapi.com/?apikey=6fcd7099&i=${id}`
         );
-        const jsonResponse = await response.json();
-        return { ...jsonResponse, expanded: false };
+        return response.json();
       })
     );
 
@@ -78,14 +77,6 @@ function App() {
     getMovie();
   }, []);
 
-  const onExpand = i => {
-    setMovies(
-      movies.map((movie, index) =>
-        i === index ? { ...movie, expanded: !movie.expanded } : movie
-      )
-    );
-  };
-
   const router = createBrowserRouter([
     {
       path: '/',
@@ -93,13 +84,7 @@ function App() {
       children: [
         {
           index: true,
-          element: (
-            <Home
-              movies={movies}
-              addFavorite={addFavorite}
-              onExpand={onExpand}
-            />
-          )
+          element: <Home movies={movies} addFavorite={addFavorite} />
         },
         {
           path: 'top rated',

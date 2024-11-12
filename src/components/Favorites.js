@@ -47,10 +47,10 @@ export default function Favorites({ favorites, removeFavorite }) {
     navigate(`/movie/${imdbID}`);
   };
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState({});
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = imdbID => {
+    setExpanded(expand => ({ ...expand, [imdbID]: !expand[imdbID] }));
   };
 
   return (
@@ -83,14 +83,17 @@ export default function Favorites({ favorites, removeFavorite }) {
                   <FavoriteIcon />
                 </IconButton>
                 <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
+                  expand={expanded[movie.imdbID] || false}
+                  onClick={() => handleExpandClick(movie.imdbID)}
+                  aria-expanded={expanded[movie.imdbID] || false}
                   aria-label='show more'>
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardActions>
-              <Collapse in={expanded} timeout='auto' unmountOnExit>
+              <Collapse
+                in={expanded[movie.imdbID] || false}
+                timeout='auto'
+                unmountOnExit>
                 <CardContent>
                   <Typography sx={{ marginBottom: 2 }}>{movie.Plot}</Typography>
                 </CardContent>

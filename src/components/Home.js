@@ -20,9 +20,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Pagination from '@mui/material/Pagination';
 import { Stack } from '@mui/material';
 
-export default function Home({ movies, addFavorite, onExpand }) {
-  console.log('SearchComponent re-rendered'); // Add this line
-
+export default function Home({ movies, addFavorite }) {
   const [expanded, setExpanded] = useState({});
   const [name, setName] = useState('');
   const [year, setYear] = useState('');
