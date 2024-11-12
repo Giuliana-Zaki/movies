@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -24,49 +24,19 @@ export default function Home({
   movies,
   addFavorite,
   favorites,
-  removeFavorite
+  removeFavorite,
+  handleSearchChange,
+  name,
+  year,
+  genre
 }) {
   const [expanded, setExpanded] = useState({});
-  const [name, setName] = useState('');
-  const [year, setYear] = useState('');
-  const [genre, setGenre] = useState('');
   const [page, setPage] = useState(1);
-  const [filteredMovies, setFilteredMovies] = useState(movies);
-
   const navigate = useNavigate();
   const nameInputRef = useRef();
   const yearInputRef = useRef();
   const genreInputRef = useRef();
 
-  useEffect(() => {
-    const lowerCaseName = name.toLowerCase();
-    const lowerCaseGenre = genre.toLowerCase();
-
-    const filtered = movies.filter(
-      movie =>
-        movie.Title.toLowerCase().includes(lowerCaseName) &&
-        movie.Year.includes(year) &&
-        movie.Genre.toLowerCase().includes(lowerCaseGenre)
-    );
-
-    setFilteredMovies(filtered);
-  }, [name, year, genre, movies]);
-
-  const handleSearchChange = event => {
-    const { name, value } = event.target;
-
-    if (name === 'name') {
-      setName(value);
-      nameInputRef.current.focus();
-    } else if (name === 'year') {
-      setYear(value);
-      yearInputRef.current.focus();
-    } else if (name === 'genre') {
-      setGenre(value);
-      genreInputRef.current.focus();
-    }
-    event.preventDefault();
-  };
   const handlePageChange = (event, value) => {
     setPage(value);
   };
@@ -156,7 +126,7 @@ export default function Home({
   }));
   const MOVIES_PER_PAGE = 12;
   const startIndex = (page - 1) * MOVIES_PER_PAGE;
-  const displayedMovies = filteredMovies.slice(
+  const displayedMovies = movies.slice(
     startIndex,
     startIndex + MOVIES_PER_PAGE
   );
@@ -258,7 +228,7 @@ export default function Home({
         ))}
         <Stack spacing={2}>
           <Pagination
-            count={Math.ceil(filteredMovies.length / MOVIES_PER_PAGE)}
+            count={Math.ceil(movies.length / MOVIES_PER_PAGE)}
             page={page}
             onChange={handlePageChange}
           />
