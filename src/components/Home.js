@@ -209,8 +209,8 @@ export default function Home({ movies, addFavorite }) {
               }}>
               <CardHeader title={movie.Title} subheader={movie.Director} />
               <CardMedia
+                sx={{ maxHeight: '500px' }}
                 component='img'
-                height='auto'
                 image={movie.Poster}
                 alt={movie.Title}
                 onClick={() => handlePosterClick(movie.imdbID)}
