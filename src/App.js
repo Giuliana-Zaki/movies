@@ -95,7 +95,13 @@ function App() {
         },
         {
           path: 'top rated',
-          element: <TopRated addFavorite={addFavorite} />
+          element: (
+            <TopRated
+              addFavorite={addFavorite}
+              favorites={favorites}
+              removeFavorite={removeFavorite}
+            />
+          )
         },
         {
           path: '/movie/:imdbID',

@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 
-export default function TopRated({ addFavorite }) {
+export default function TopRated({ addFavorite, favorites, removeFavorite }) {
   const [movies, setMovies] = useState([]);
   const navigate = useNavigate();
 
@@ -69,6 +69,16 @@ export default function TopRated({ addFavorite }) {
     navigate(`/movie/${imdb}`);
   };
 
+  const isFavorite = movie =>
+    favorites.some(fav => fav.imdbID === movie.imdbID);
+
+  const handleFavoriteClick = movie => {
+    if (isFavorite(movie)) {
+      removeFavorite(movie.imdbID);
+    } else {
+      addFavorite(movie);
+    }
+  };
   return (
     <List
       key={'TopRatedMovies'}
@@ -119,8 +129,10 @@ export default function TopRated({ addFavorite }) {
               />
               <IconButton
                 aria-label='add to favorites'
-                onClick={() => addFavorite(movie)}>
-                <FavoriteIcon />
+                onClick={() => handleFavoriteClick(movie)}>
+                <FavoriteIcon
+                  sx={{ color: isFavorite(movie) ? 'red' : 'gray' }}
+                />
               </IconButton>
             </ListItem>
             <Divider variant='inset' component='li' key={Divider} />

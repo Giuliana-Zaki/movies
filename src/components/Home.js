@@ -78,11 +78,11 @@ export default function Home({
   const handleExpandClick = imdbID => {
     setExpanded(expand => ({ ...expand, [imdbID]: !expand[imdbID] }));
   };
-  const isFavorited = movie =>
+  const isFavorite = movie =>
     favorites.some(fav => fav.imdbID === movie.imdbID);
 
   const handleFavoriteClick = movie => {
-    if (isFavorited(movie)) {
+    if (isFavorite(movie)) {
       removeFavorite(movie.imdbID);
     } else {
       addFavorite(movie);
@@ -234,7 +234,7 @@ export default function Home({
                   aria-label='add to favorites'
                   onClick={() => handleFavoriteClick(movie)}>
                   <FavoriteIcon
-                    sx={{ color: isFavorited(movie) ? 'red' : 'gray' }}
+                    sx={{ color: isFavorite(movie) ? 'red' : 'gray' }}
                   />
                 </IconButton>
                 <ExpandMore
