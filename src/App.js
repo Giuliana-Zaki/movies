@@ -50,7 +50,6 @@ function App() {
       setFavorites(JSON.parse(savedFavorites));
     }
   }, []);
-  console.log(favorites);
 
   async function getMovie() {
     const data = await Promise.all(
@@ -68,7 +67,8 @@ function App() {
         const response = await fetch(
           `https://www.omdbapi.com/?apikey=6fcd7099&i=${id}`
         );
-        return response.json();
+        const jsonResponse = await response.json();
+        return { ...jsonResponse, expanded: false };
       })
     );
 
@@ -78,6 +78,14 @@ function App() {
     getMovie();
   }, []);
 
+  const onExpand = i => {
+    setMovies(
+      movies.map((movie, index) =>
+        i === index ? { ...movie, expanded: !movie.expanded } : movie
+      )
+    );
+  };
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -85,7 +93,13 @@ function App() {
       children: [
         {
           index: true,
-          element: <Home movies={movies} addFavorite={addFavorite} />
+          element: (
+            <Home
+              movies={movies}
+              addFavorite={addFavorite}
+              onExpand={onExpand}
+            />
+          )
         },
         {
           path: 'top rated',

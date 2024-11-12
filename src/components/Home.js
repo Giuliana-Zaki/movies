@@ -20,10 +20,10 @@ import Toolbar from '@mui/material/Toolbar';
 import Pagination from '@mui/material/Pagination';
 import { Stack } from '@mui/material';
 
-export default function Home({ movies, addFavorite }) {
+export default function Home({ movies, addFavorite, onExpand }) {
   console.log('SearchComponent re-rendered'); // Add this line
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState({});
   const [name, setName] = useState('');
   const [year, setYear] = useState('');
   const [genre, setGenre] = useState('');
@@ -72,8 +72,8 @@ export default function Home({ movies, addFavorite }) {
     navigate(`/movie/${imdbID}`);
   };
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const handleExpandClick = imdbID => {
+    setExpanded(expand => ({ ...expand, [imdbID]: !expand[imdbID] }));
   };
 
   const Search = styled('div')(({ theme }) => ({
@@ -223,14 +223,17 @@ export default function Home({ movies, addFavorite }) {
                   <FavoriteIcon />
                 </IconButton>
                 <ExpandMore
-                  expand={expanded}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
+                  expand={expanded[movie.imdbID] || false}
+                  onClick={() => handleExpandClick(movie.imdbID)}
+                  aria-expanded={expanded[movie.imdbID] || false}
                   aria-label='show more'>
                   <ExpandMoreIcon />
                 </ExpandMore>
               </CardActions>
-              <Collapse in={expanded} timeout='auto' unmountOnExit>
+              <Collapse
+                in={expanded[movie.imdbID] || false}
+                timeout='auto'
+                unmountOnExit>
                 <CardContent>
                   <Typography sx={{ marginBottom: 2 }}>{movie.Plot}</Typography>
                 </CardContent>
